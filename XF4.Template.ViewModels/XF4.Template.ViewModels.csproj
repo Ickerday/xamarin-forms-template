@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Refractored.MvvmHelpers" Version="1.3.0" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
+    <PackageReference Include="Xamarin.Forms" Version="4.0.0.482894" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\XF4.Template.Services\XF4.Template.Services.csproj" />
+  </ItemGroup>
+
+</Project>
