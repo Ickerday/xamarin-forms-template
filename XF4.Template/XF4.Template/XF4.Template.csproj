@@ -13,12 +13,18 @@
 
   <ItemGroup>
     <PackageReference Include="akavache" Version="6.5.9" />
+    <PackageReference Include="DryIoc.dll" Version="4.0.5" />
     <PackageReference Include="Xamarin.Forms" Version="4.0.0.482894" />
     <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\XF4.Template.ViewModels\XF4.Template.ViewModels.csproj" />
-    <ProjectReference Include="..\..\XF4.Template.Views\XF4.Template.Views.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\MainPage.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

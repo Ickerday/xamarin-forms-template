@@ -1,15 +1,26 @@
 ﻿using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.Forms;
+using XF4.Template.Services.Dialog;
 using XF4.Template.ViewModels.Base;
 
 namespace XF4.Template.ViewModels.Main
 {
     public class MainPageViewModel : ViewModelBase
     {
-        public override Task InitializeAsync(object parameter)
-        {
-            Title = nameof(MainPageViewModel);
+        #region SERVICES
+        private readonly IDialogService _dialogService;
+        #endregion
 
-            return base.InitializeAsync(parameter);
-        }
+        #region COMMANDS
+        private ICommand _showDialogCommand;
+        public ICommand ShowDialogCommand => _showDialogCommand
+            ?? (_showDialogCommand = new Command<string>(async p => await ExecuteShowDialog(p)));
+        #endregion
+
+        public MainPageViewModel() => _dialogService = new DialogService();
+
+        private async Task ExecuteShowDialog(string parameter) =>
+            await _dialogService.DisplayInfoAlertAsync(parameter);
     }
 }

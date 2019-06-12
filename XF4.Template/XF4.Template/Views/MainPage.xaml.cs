@@ -1,18 +1,16 @@
-﻿using System.ComponentModel;
-using XF4.Template.ViewModels.Main;
+﻿using XF4.Template.ViewModels.Main;
 
 namespace XF4.Template.Views
 {
-    [DesignTimeVisible(false)]
-    public sealed partial class MainPage
+    public partial class MainPage
     {
         private readonly MainPageViewModel _viewModel;
 
-        public MainPage()
+        public MainPage(MainPageViewModel viewModel)
         {
             InitializeComponent();
 
-            BindingContext = _viewModel = new MainPageViewModel(); // TODO: Add IoC library
+            BindingContext = _viewModel = viewModel;
         }
 
         protected override async void OnAppearing()

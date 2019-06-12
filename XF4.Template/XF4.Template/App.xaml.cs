@@ -1,16 +1,23 @@
 ﻿using Akavache;
+using DryIoc;
 using System.Threading.Tasks;
+using Xamarin.Forms;
+using XF4.Template.ViewModels.Main;
 using XF4.Template.Views;
 
 namespace XF4.Template
 {
     public partial class App
     {
+        public readonly IContainer Container;
+
         public App()
         {
+            Container = DependencyContainer.CreateContainer();
+
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(new MainPage(Container.Resolve<MainPageViewModel>()));
         }
 
         protected override void OnStart() =>

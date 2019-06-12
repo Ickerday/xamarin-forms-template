@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="akavache" Version="6.5.9" />
+    <PackageReference Include="DryIoc.dll" Version="4.0.5" />
     <PackageReference Include="HttpTracer" Version="2.0.2" />
     <PackageReference Include="Refit" Version="4.7.9" />
     <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />

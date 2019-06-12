@@ -24,25 +24,33 @@ namespace XF4.Template.Services.Dialog
     {
         private static Page MainPage => Application.Current.MainPage;
 
+        #region LABELS 
+        private const string Info = nameof(Info);
+        private const string Error = nameof(Error);
+        private const string Ok = nameof(Ok);
+        private const string Cancel = nameof(Cancel);
+        private const string Confirm = nameof(Confirm);
+        #endregion
+
         public async Task DisplayInfoAlertAsync(string message) =>
-            await MainPage.DisplayAlert("Info", message, "Ok");
+            await MainPage.DisplayAlert(Info, message, Ok);
 
         public async Task DisplayErrorAlertAsync(string message) =>
-            await MainPage.DisplayAlert("Error", message, "O");
+            await MainPage.DisplayAlert(Error, message, Ok);
 
         public async Task DisplayCustomAlertAsync(string title, string message) =>
-            await MainPage.DisplayAlert(title, message, "Ok");
+            await MainPage.DisplayAlert(title, message, Ok);
 
         public async Task DisplayCustomAlertAsync(string title, string message, string confirm) =>
             await MainPage.DisplayAlert(title, message, confirm);
 
         public async Task<bool> DisplayConfirmationAlertAsync(string title, string message) =>
-            await MainPage.DisplayAlert(title, message, "Confirm", "Cancel");
+            await MainPage.DisplayAlert(title, message, Confirm, Cancel);
 
         public async Task<bool> DisplayConfirmationAlertAsync(string title, string message, string accept, string cancel) =>
             await MainPage.DisplayAlert(title, message, accept, cancel);
 
         public async Task<string> DisplayActionSheet(string title, string destruction, params string[] buttons) =>
-            await MainPage.DisplayActionSheet(title, "Cancel", destruction, buttons);
+            await MainPage.DisplayActionSheet(title, Cancel, destruction, buttons);
     }
 }
