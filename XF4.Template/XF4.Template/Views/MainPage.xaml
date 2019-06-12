@@ -6,9 +6,7 @@
              xmlns:vm="clr-namespace:XF4.Template.ViewModels.Main;assembly=XF4.Template.ViewModels"
              mc:Ignorable="d"
              x:Class="XF4.Template.Views.MainPage">
-    <ContentPage.BindingContext>
-        <vm:MainPageViewModel />
-    </ContentPage.BindingContext>
+
     <StackLayout VerticalOptions="CenterAndExpand" 
                  HorizontalOptions="CenterAndExpand">
 

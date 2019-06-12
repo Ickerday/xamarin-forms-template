@@ -18,7 +18,8 @@ namespace XF4.Template.ViewModels.Main
             ?? (_showDialogCommand = new Command<string>(async p => await ExecuteShowDialog(p)));
         #endregion
 
-        public MainPageViewModel() => _dialogService = new DialogService();
+        public MainPageViewModel(IDialogService dialogService) =>
+            _dialogService = dialogService;
 
         private async Task ExecuteShowDialog(string parameter) =>
             await _dialogService.DisplayInfoAlertAsync(parameter);
