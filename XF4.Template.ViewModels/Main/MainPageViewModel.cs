@@ -8,20 +8,15 @@ namespace XF4.Template.ViewModels.Main
 {
     public class MainPageViewModel : ViewModelBase
     {
-        #region SERVICES
-        private readonly IDialogService _dialogService;
-        #endregion
-
         #region COMMANDS
         private ICommand _showDialogCommand;
         public ICommand ShowDialogCommand => _showDialogCommand
             ?? (_showDialogCommand = new Command<string>(async p => await ExecuteShowDialog(p)));
         #endregion
 
-        public MainPageViewModel(IDialogService dialogService) =>
-            _dialogService = dialogService;
+        public MainPageViewModel(IDialogService dialogService) : base(dialogService) { }
 
         private async Task ExecuteShowDialog(string parameter) =>
-            await _dialogService.DisplayInfoAlertAsync(parameter);
+            await DialogService.DisplayInfoAlertAsync(parameter);
     }
 }
