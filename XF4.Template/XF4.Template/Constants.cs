@@ -14,7 +14,7 @@ namespace XF4.Template
                 { typeof(MainPageViewModel), typeof(MainPage) },
             };
 
-            public static IEnumerable<Type> Tabs = new[]
+            public static Type[] Tabs = new[]
             {
                 typeof(MainPage),
             };

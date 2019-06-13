@@ -1,7 +1,7 @@
 ﻿using Akavache;
-using AltkomSoftware.Onstage.Core.Services.Navigation;
 using DryIoc;
 using System.Threading.Tasks;
+using XF4.Template.Services.Navigation;
 using XF4.Template.ViewModels.Main;
 using XF4.Template.Views;
 using static XF4.Template.Constants;
@@ -23,8 +23,8 @@ namespace XF4.Template
         {
             Registrations.Start(nameof(Template));
 
-            Container.Resolve<IPageNavigationService>()
-                .InitializeAsync<MainPageViewModel, MainPage>(Navigation.RoutingTable);
+            Container.Resolve<INavigationService>()
+                .InitializeAsync<MainPageViewModel, MainPage>(Navigation.RoutingTable, Navigation.Tabs);
         }
 
         // Handle when your app sleeps

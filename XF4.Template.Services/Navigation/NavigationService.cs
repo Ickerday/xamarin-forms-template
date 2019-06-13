@@ -3,32 +3,43 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using XF4.Template.Services.Navigation;
 
-namespace AltkomSoftware.Onstage.Core.Services.Navigation
+namespace XF4.Template.Services.Navigation
 {
-    public interface IPageNavigationService : INavigationService
+    public interface INavigationService
     {
+        Task InitializeAsync<TStartViewModel, TStartPage>(IDictionary<Type, Type> routingTable, Type[] appTabs = null)
+            where TStartViewModel : IInitializable
+            where TStartPage : Page;
         Task GoToAsync<TViewModel, TPage>(object parameter, bool animated = true)
             where TViewModel : IInitializable
             where TPage : Page;
+        Task GoToModalAsync<TViewModel, TPage>(object parameter, bool animated = true)
+            where TViewModel : IInitializable
+            where TPage : Page;
+
+        Task PopAsync(bool animated = true);
+
+        Task PopToRootAsync(bool animated = true);
+
+        Task PopModalAsync(bool animated = true);
     }
 
-    public class PageNavigationService : IPageNavigationService
+    public class NavigationService : INavigationService
     {
         #region PROPS
         private IDictionary<Type, Type> _routingTable;
-        private IEnumerable<Type> _appTabs;
+        private Type[] _appTabs;
 
         public Page MainPage { get; set; }
         #endregion
 
-        public PageNavigationService() { }
+        public NavigationService() { }
 
         /// <typeparam name="TStartViewModel">On app start, this will be the first viewModel to be navigated to.</typeparam>
         /// <param name="routingTable">A dictionary connecting pages to their viewModels</param>
         /// <param name="appTabs">App's main tabs</param>
-        public async Task InitializeAsync<TStartViewModel, TStartPage>(IDictionary<Type, Type> routingTable, IEnumerable<Type> appTabs)
+        public async Task InitializeAsync<TStartViewModel, TStartPage>(IDictionary<Type, Type> routingTable, Type[] appTabs)
             where TStartViewModel : IInitializable
             where TStartPage : Page
         {
