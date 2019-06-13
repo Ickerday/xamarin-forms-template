@@ -7,30 +7,14 @@ using XF4.Template.Services.Navigation;
 
 namespace AltkomSoftware.Onstage.Core.Services.Navigation
 {
-    public interface INavigationService
+    public interface IPageNavigationService : INavigationService
     {
-        Task InitializeAsync<TStartViewModel, TStartPage>(IDictionary<Type, Type> routingTable, IEnumerable<Type> appTabs)
-            where TStartViewModel : IInitializable, INavigable
-            where TStartPage : Page;
-
-        Task PopAsync(bool animated = true);
-
-        Task PopToRootAsync(bool animated = true);
-
-        Task PopModalAsync(bool animated = true);
-
-        Task GoToAsync(ShellNavigationState route, bool animated = true);
-
         Task GoToAsync<TViewModel, TPage>(object parameter, bool animated = true)
-            where TViewModel : IInitializable
-            where TPage : Page;
-
-        Task GoToModalAsync<TViewModel, TPage>(object parameter, bool animated = true)
             where TViewModel : IInitializable
             where TPage : Page;
     }
 
-    public class NavigationService : INavigationService
+    public class PageNavigationService : IPageNavigationService
     {
         #region PROPS
         private IDictionary<Type, Type> _routingTable;
@@ -39,18 +23,13 @@ namespace AltkomSoftware.Onstage.Core.Services.Navigation
         public Page MainPage { get; set; }
         #endregion
 
-        /// <summary>
-        /// Used only for testing.
-        /// </summary>
-        public NavigationService(Page mainPage) => MainPage = mainPage;
-
-        public NavigationService() { }
+        public PageNavigationService() { }
 
         /// <typeparam name="TStartViewModel">On app start, this will be the first viewModel to be navigated to.</typeparam>
         /// <param name="routingTable">A dictionary connecting pages to their viewModels</param>
         /// <param name="appTabs">App's main tabs</param>
         public async Task InitializeAsync<TStartViewModel, TStartPage>(IDictionary<Type, Type> routingTable, IEnumerable<Type> appTabs)
-            where TStartViewModel : IInitializable, INavigable
+            where TStartViewModel : IInitializable
             where TStartPage : Page
         {
             _routingTable = routingTable;
@@ -59,8 +38,7 @@ namespace AltkomSoftware.Onstage.Core.Services.Navigation
             if (!_appTabs.Any(t => typeof(TStartViewModel) == t))
                 await Task.CompletedTask;
 
-            var mainPage = Activator.CreateInstance<TStartPage>();
-            Application.Current.MainPage = MainPage = mainPage;
+            Application.Current.MainPage = MainPage = Activator.CreateInstance<TStartPage>();
         }
 
         #region NAVIGATION
@@ -70,16 +48,6 @@ namespace AltkomSoftware.Onstage.Core.Services.Navigation
         {
             var page = await CreatePageAsync<TViewModel, TPage>(parameter);
             await MainPage.Navigation.PushAsync(page, animated);
-        }
-
-        public async Task GoToAsync(ShellNavigationState route, bool animated = true)
-        {
-            // TODO: Page caching
-            if (string.IsNullOrWhiteSpace(route.Location.OriginalString))
-                return;
-
-            if (MainPage is Shell shellPage)
-                await shellPage.GoToAsync(route, animated);
         }
 
         public async Task GoToModalAsync<TViewModel, TPage>(object parameter, bool animated = true)

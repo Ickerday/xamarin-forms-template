@@ -1,4 +1,5 @@
-﻿using DryIoc;
+﻿using AltkomSoftware.Onstage.Core.Services.Navigation;
+using DryIoc;
 using XF4.Template.Services.Dialog;
 using XF4.Template.ViewModels.Main;
 
@@ -12,6 +13,8 @@ namespace XF4.Template
 
             #region SERVICES
             container.Register<IDialogService, DialogService>();
+            //container.Register<IShellNavigationService, ShellNavigationService>();
+            container.Register<IPageNavigationService, PageNavigationService>();
             #endregion
 
             #region VIEWMODELS
