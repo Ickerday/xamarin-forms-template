@@ -1,11 +1,10 @@
 ﻿using MvvmHelpers;
 using System.Threading.Tasks;
 using XF4.Template.Services.Dialog;
-using XF4.Template.Services.Navigation;
 
 namespace XF4.Template.ViewModels.Base
 {
-    public class ViewModelBase : BaseViewModel, IInitializable
+    public class ViewModelBase : BaseViewModel
     {
         #region SERVICES
         protected readonly IDialogService DialogService;

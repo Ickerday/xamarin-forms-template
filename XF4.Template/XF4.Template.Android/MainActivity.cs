@@ -2,12 +2,9 @@
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
-using System;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using DotNetException = System.Exception;
 using FormsAppCompatActivity = Xamarin.Forms.Platform.Android.FormsAppCompatActivity;
-using JavaException = Java.Lang.Exception;
 
 namespace XF4.Template.Droid
 {
@@ -28,19 +25,9 @@ namespace XF4.Template.Droid
             Platform.Init(this, savedInstanceState);
             Forms.Init(this, savedInstanceState);
 
-            try
-            {
-                LoadApplication(new App());
-            }
-            catch (JavaException ex)
-            {
-                Console.WriteLine(ex);
-            }
-            catch (DotNetException ex)
-            {
-                Console.WriteLine(ex);
-            }
+            LoadApplication(new App());
         }
+
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {
             Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
